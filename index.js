@@ -6,6 +6,9 @@ const app = express();
 app.use(express.json());
 app.use(cors({ origin: true }));
 
+require('dotenv').config();
+const PORT = process.env.PORT || 3001;
+
 app.post('/authenticate', async (req, res) => {
   const { username } = req.body;
   // Get or create user on Chat Engine!
@@ -13,7 +16,7 @@ app.post('/authenticate', async (req, res) => {
     const r = await axios.put(
       'https://api.chatengine.io/users/',
       { username: username, secret: username, first_name: username },
-      { headers: { 'Private-Key': '0d8eeff3-6691-4ff2-9ec1-8e5855b71787' } }
+      { headers: { 'Private-Key': 'e1828778-3d5a-401a-a864-2bb58a4c379b' } }
     );
     return res.status(r.status).json(r.data);
   } catch (e) {
@@ -21,4 +24,4 @@ app.post('/authenticate', async (req, res) => {
   }
 });
 
-app.listen(3001);
+app.listen(`${PORT}`);
